@@ -17,7 +17,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Fwrd posts {\"content\": \"...\"} and adds \"sender\" only when Include Who Sent It is on.\nconst CODE = /(?<!\\d)(\\d{3,4})[ -]?(\\d{3,4})(?!\\d)|(?<!\\d)(\\d{4,8})(?!\\d)/;\n\nreturn $input.all().map((item) => {\n  const body = item.json.body ?? {};\n  const text = typeof body.content === 'string' ? body.content : '';\n  const m = text.match(CODE);\n  return {\n    json: {\n      text,\n      sender: body.sender ?? null,\n      code: m ? (m[3] ?? m[1] + m[2]) : null,\n      idempotencyKey: item.json.headers?.['idempotency-key'] ?? null,\n      receivedAt: new Date().toISOString(),\n    },\n  };\n});"
+        "jsCode": "// Fwrd posts {\"content\": \"...\", \"text\": \"...\"} (the same message twice) and adds \"sender\" only when Include Who Sent It is on.\nconst CODE = /(?<!\\d)(\\d{3,4})[ -]?(\\d{3,4})(?!\\d)|(?<!\\d)(\\d{4,8})(?!\\d)/;\n\nreturn $input.all().map((item) => {\n  const body = item.json.body ?? {};\n  const text = typeof body.content === 'string' ? body.content : '';\n  const m = text.match(CODE);\n  return {\n    json: {\n      text,\n      sender: body.sender ?? null,\n      code: m ? (m[3] ?? m[1] + m[2]) : null,\n      idempotencyKey: item.json.headers?.['idempotency-key'] ?? null,\n      receivedAt: new Date().toISOString(),\n    },\n  };\n});"
       },
       "id": "5b0f6a52-3c55-4a43-9d38-4c3e3a2b7a03",
       "name": "Pull out the code",

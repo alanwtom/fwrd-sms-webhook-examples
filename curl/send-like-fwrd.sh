@@ -22,9 +22,9 @@ json_string() {
 }
 
 if [ -n "$SENDER" ]; then
-  BODY="{\"content\":$(json_string "$MESSAGE"),\"sender\":$(json_string "$SENDER")}"
+  BODY="{\"content\":$(json_string "$MESSAGE"),\"text\":$(json_string "$MESSAGE"),\"sender\":$(json_string "$SENDER")}"
 else
-  BODY="{\"content\":$(json_string "$MESSAGE")}"
+  BODY="{\"content\":$(json_string "$MESSAGE"),\"text\":$(json_string "$MESSAGE")}"
 fi
 
 # A fresh key per text. Fwrd keeps the same key when it retries the same text.

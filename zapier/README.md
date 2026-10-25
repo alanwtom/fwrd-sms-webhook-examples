@@ -7,8 +7,8 @@ Zapier's **Webhooks by Zapier → Catch Hook** trigger receives Fwrd's texts. No
    (`https://hooks.zapier.com/hooks/catch/…`).
 3. On your iPhone, open Fwrd, tap **+**, choose **Webhook**, paste the URL, and save. Tap
    **Send Test Message** so Zapier has a sample to map.
-4. Back in Zapier, click **Test trigger**. You'll see one field, `content` (and `sender` if
-   **Include Who Sent It** is on in Fwrd's Settings).
+4. Back in Zapier, click **Test trigger**. You'll see `content` and `text` (the same message
+   twice; use either) and `sender` if **Include Who Sent It** is on in Fwrd's Settings.
 5. Add your action: a Google Sheets row, a Notion page, a Gmail draft, a Slack message.
    To pull out just the code, add **Formatter by Zapier → Text → Extract Number**, or a
    **Code by Zapier** step with the regex from [`../node/server.mjs`](../node/server.mjs).

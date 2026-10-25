@@ -23,23 +23,25 @@ POST /your/path HTTP/1.1
 Content-Type: application/json
 Idempotency-Key: 6F9619FF-8B86-D011-B42D-00C04FC964FF
 
-{"content":"Your verification code is 482913. It expires in 10 minutes."}
+{"content":"Your verification code is 482913. It expires in 10 minutes.","text":"Your verification code is 482913. It expires in 10 minutes."}
 ```
 
 With **Include Who Sent It** turned on in Fwrd's Settings (off by default) and the Sender field
 set on Fwrd's action in Shortcuts, the body gets one more field:
 
 ```json
-{"content":"Your verification code is 482913. It expires in 10 minutes.","sender":"+15555550123"}
+{"content":"Your verification code is 482913. It expires in 10 minutes.","text":"Your verification code is 482913. It expires in 10 minutes.","sender":"+15555550123"}
 ```
 
 That's all of it. `content` is the message exactly as it arrived, line breaks kept, with nothing
-added: no title, no timestamp, no phone number unless you turn on `sender`. The JSON Schema is in
+added: no title, no timestamp, no phone number unless you turn on `sender`. `text` is the same
+message again, so tools that read `text` (Mattermost and Rocket.Chat incoming webhooks) work
+directly. Read either one; they're always identical. The JSON Schema is in
 [`payload/fwrd-webhook.schema.json`](payload/fwrd-webhook.schema.json).
 
 ### Rules your endpoint should know
 
-These come from the Fwrd iOS app's source, checked on 2026-10-25 (Fwrd 1.2.1).
+These come from the Fwrd iOS app's source, checked on 2026-10-25 against the shipped 1.2.1 and 1.3.1.
 
 | | |
 |---|---|
@@ -50,6 +52,7 @@ These come from the Fwrd iOS app's source, checked on 2026-10-25 (Fwrd 1.2.1).
 | Retries | On `429`, `5xx` or a dropped connection, at most twice, with short backoff (and `Retry-After` honoured). The same `Idempotency-Key` is kept across retries, so dedupe on it. |
 | Which texts | Only new texts that match the Shortcuts automation, and, if you set them, Fwrd's filters on this destination (certain words, looks like a verification code, time of day). |
 | When | As each text arrives, while the iPhone is on and online. |
+| Google Chat | A `chat.googleapis.com` webhook URL gets only `{"text": …}`, because Google Chat rejects fields it doesn't know. Every other URL gets the body above. |
 
 ## Examples
 
