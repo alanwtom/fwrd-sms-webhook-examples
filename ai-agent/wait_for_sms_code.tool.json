@@ -1,0 +1,19 @@
+{
+  "name": "wait_for_sms_code",
+  "description": "Wait for the next SMS verification code that arrives on the user's iPhone (forwarded by Fwrd) and return it. Call this right after a website or app says it has texted a code. Returns the code, the full text, and when it arrived.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "contains": {
+        "type": "string",
+        "description": "Optional word the text must contain, such as the service's name, to skip codes from other services."
+      },
+      "timeout_seconds": {
+        "type": "integer",
+        "description": "How long to wait, up to 120. Default 60.",
+        "minimum": 5,
+        "maximum": 120
+      }
+    }
+  }
+}

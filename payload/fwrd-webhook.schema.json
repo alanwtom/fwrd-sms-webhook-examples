@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/alanwtom/fwrd-sms-webhook-examples/payload/fwrd-webhook.schema.json",
+  "title": "Fwrd webhook body",
+  "description": "The JSON body Fwrd (https://www.fwrdsms.com) POSTs to a custom webhook for each forwarded text. Checked against the Fwrd iOS app's source on 2026-10-25 (Fwrd 1.2.1).",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "string",
+      "description": "The text message exactly as it arrived, whitespace and line breaks kept. Nothing is added: no title, timestamp or markup."
+    },
+    "sender": {
+      "type": "string",
+      "description": "Who sent the text, as Shortcuts hands it over (a phone number, a short code, a contact name or a letter sender ID). Present only when Include Who Sent It is on in Fwrd's Settings and the Sender field is set on Fwrd's action in Shortcuts."
+    }
+  },
+  "required": ["content"],
+  "additionalProperties": false
+}
