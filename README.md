@@ -66,6 +66,7 @@ These come from the Fwrd iOS app's source, checked on 2026-10-25 against the shi
 | [`zapier/`](zapier/README.md) | Catch Hook → Google Sheets, Notion, Slack… |
 | [`make/`](make/README.md) | Custom webhook → any Make module |
 | [`ai-agent/`](ai-agent/) | An SMS-code inbox plus a `wait_for_sms_code` tool an AI agent can call during a login |
+| [fwrd-sms-mcp](https://github.com/alanwtom/fwrd-sms-mcp) | The same idea as a ready MCP server for Claude, Cursor and other MCP clients, deployed to your own Cloudflare account |
 
 ## Try it in two minutes
 
