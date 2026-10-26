@@ -62,7 +62,7 @@ These come from the Fwrd iOS app's source, checked on 2026-10-25 against the shi
 | [`node/`](node/server.mjs) | Minimal receiver, no dependencies: token check, dedupe, code extraction |
 | [`python/`](python/server.py) | The same in Python, standard library only |
 | [`cloudflare-worker/`](cloudflare-worker/worker.js) | A Worker that receives texts and sends them on to another webhook with the code pulled out |
-| [`n8n/`](n8n/) | Importable workflow: Webhook node → Code node that pulls out the code |
+| [`n8n/`](n8n/) | Two importable workflows: pull out the code, or add each text as a Google Sheets row |
 | [`zapier/`](zapier/README.md) | Catch Hook → Google Sheets, Notion, Slack… |
 | [`make/`](make/README.md) | Custom webhook → any Make module |
 | [`ai-agent/`](ai-agent/) | An SMS-code inbox plus a `wait_for_sms_code` tool an AI agent can call during a login |

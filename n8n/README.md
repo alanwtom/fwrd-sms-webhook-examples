@@ -1,14 +1,21 @@
 # n8n
 
-`fwrd-sms-to-n8n.workflow.json` is a two-node workflow: a **Webhook** node that receives
-each text from Fwrd, and a **Code** node that pulls out the verification code. Add your own
-nodes after it (Google Sheets, Slack, an AI Agent, an HTTP Request to your API).
+Two workflows to import:
+
+- `fwrd-sms-to-n8n.workflow.json`: a **Webhook** node that receives each text from Fwrd, and a
+  **Code** node that pulls out the verification code. Add your own nodes after it (Slack, an AI
+  Agent, an HTTP Request to your API).
+- `fwrd-sms-to-google-sheets.workflow.json`: the same, then **Google Sheets → Append** adds one
+  row per text with `received_at`, `sender`, `code` and `text`. Make a sheet with those four
+  column headers in row 1, paste its URL into the Google Sheets node, and connect your Google
+  account in n8n.
 
 ## Set it up
 
 1. In n8n, open **Workflows → Import from File** (or paste the JSON onto the canvas) and pick
-   `fwrd-sms-to-n8n.workflow.json`.
-2. Open the **Fwrd webhook** node. Copy the **Production URL**. It ends in `/webhook/fwrd-sms`.
+   one of the two workflow files.
+2. Open the **Fwrd webhook** node. Copy the **Production URL**. It ends in `/webhook/fwrd-sms`
+   (or `/webhook/fwrd-sms-sheet`).
    (The test URL only listens while you have the editor open and click "Listen for test event".)
 3. **Activate** the workflow (the toggle at the top). Production URLs only answer when it's active.
 4. On your iPhone, open Fwrd, tap **+**, choose **Webhook**, paste the production URL, and save.
