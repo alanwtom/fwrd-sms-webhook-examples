@@ -32,5 +32,10 @@ Fwrd sends no auth header. Either use a long, unguessable path instead of `fwrd-
 `?token=<long random string>` to the URL you paste into Fwrd and check it with an **If** node
 on `{{$json.query.token}}`.
 
+**Tested** on self-hosted n8n 2.44.7 on 2026-10-26: both workflows import and publish, the
+production webhook answers 200 to the exact request Fwrd sends, and the Code node returns
+`{"text": "G-123 456 is your code", "code": "123456", ...}` with the `Idempotency-Key` header read.
+The Google Sheets step needs your own Google credentials, so it was imported but not run.
+
 More: <https://www.fwrdsms.com/iphone-sms-to-zapier-make-n8n> ·
 [n8n's Webhook node docs](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/)
