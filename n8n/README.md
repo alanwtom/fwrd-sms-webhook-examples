@@ -17,7 +17,7 @@ Two workflows to import:
 2. Open the **Fwrd webhook** node. Copy the **Production URL**. It ends in `/webhook/fwrd-sms`
    (or `/webhook/fwrd-sms-sheet`).
    (The test URL only listens while you have the editor open and click "Listen for test event".)
-3. **Activate** the workflow (the toggle at the top). Production URLs only answer when it's active.
+3. **Publish** the workflow (n8n 1.x calls it **Activate**). Production URLs only answer once it's published.
 4. On your iPhone, open Fwrd, tap **+**, choose **Webhook**, paste the production URL, and save.
    n8n Cloud and any self-hosted n8n with a public `https://` address both work. Fwrd doesn't
    post to `localhost`, IP addresses or `.local` names.
@@ -36,6 +36,12 @@ on `{{$json.query.token}}`.
 production webhook answers 200 to the exact request Fwrd sends, and the Code node returns
 `{"text": "G-123 456 is your code", "code": "123456", ...}` with the `Idempotency-Key` header read.
 The Google Sheets step needs your own Google credentials, so it was imported but not run.
+
+Tested again on self-hosted n8n 2.47.5 on 2026-11-12. A real request from the Fwrd app (1.5.2, iPhone
+simulator) reached a published Webhook node and got a 200. The code workflow, imported unchanged, then
+returned `"code": "482913"` and `"731204"` for Fwrd's exact request bytes: escaped slashes, a line
+break, an emoji, and a `sender` field. The Sheets workflow imports but won't publish until you add your
+Google account and sheet.
 
 More: <https://www.fwrdsms.com/iphone-sms-to-zapier-make-n8n> ·
 [n8n's Webhook node docs](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/)
