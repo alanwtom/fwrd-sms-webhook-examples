@@ -63,6 +63,7 @@ These come from the Fwrd iOS app's source, checked on 2026-10-25 against the shi
 | [`python/`](python/server.py) | The same in Python, standard library only |
 | [`cloudflare-worker/`](cloudflare-worker/worker.js) | A Worker that receives texts and sends them on to another webhook with the code pulled out |
 | [`n8n/`](n8n/) | Two importable workflows: pull out the code, or add each text as a Google Sheets row |
+| [`home-assistant/`](home-assistant/) | A webhook-trigger automation that shows each text as a notification |
 | [`zapier/`](zapier/README.md) | Catch Hook → Google Sheets, Notion, Slack… |
 | [`make/`](make/README.md) | Custom webhook → any Make module |
 | [`ai-agent/`](ai-agent/) | An SMS-code inbox plus a `wait_for_sms_code` tool an AI agent can call during a login |

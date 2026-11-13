@@ -1,0 +1,29 @@
+# Fwrd -> Home Assistant: show each forwarded iPhone text as a notification.
+# Paste into Settings > Automations & scenes > Create automation > Create new automation >
+# the three-dot menu > Edit in YAML, then save.
+# Change webhook_id to a long random string only you know: it is the only password.
+alias: "Fwrd: text to notification"
+description: >-
+  Shows each iPhone text Fwrd forwards. Fwrd posts {"content": "...", "text": "..."} as JSON,
+  plus "sender" when Include Who Sent It is on.
+mode: queued
+triggers:
+  - trigger: webhook
+    webhook_id: "replace-with-a-long-random-id"
+    allowed_methods:
+      - POST
+    # Keep true with a Home Assistant Cloud webhook link.
+    # Set to false with your own HTTPS domain, because the iPhone posts from wherever it is.
+    local_only: true
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: >-
+        {% if trigger.json.sender is defined %}Text from {{ trigger.json.sender }}{% else %}New text{% endif %}
+      message: "{{ trigger.json.text }}"
+  # To get it on your phone instead, swap the action above for your mobile app's notify action:
+  # - action: notify.mobile_app_your_phone
+  #   data:
+  #     title: "New text"
+  #     message: "{{ trigger.json.text }}"
